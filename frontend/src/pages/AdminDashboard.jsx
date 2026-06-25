@@ -367,7 +367,7 @@ const AdminDashboard = () => {
                         (b.company_name && b.company_name.toLowerCase().includes(term)) ||
                         (b.booking_id && b.booking_id.toLowerCase().includes(term)) ||
                         (b.contact_person && b.contact_person.toLowerCase().includes(term)) ||
-                        (b.stall_no && b.stall_no.toString().includes(term))
+                        (b.stall_no && b.stall_no.toString().toLowerCase().includes(term))
                     );
                 })
                 .sort((a, b) => {
@@ -375,57 +375,67 @@ const AdminDashboard = () => {
                     if (sortBy === 'name') {
                         valA = (a.company_name || '').toLowerCase();
                         valB = (b.company_name || '').toLowerCase();
+                        return sortOrder === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
                     } else if (sortBy === 'stall') {
-                        valA = parseInt(a.stall_no) || 0;
-                        valB = parseInt(b.stall_no) || 0;
+                        valA = (a.stall_no || '').toString();
+                        valB = (b.stall_no || '').toString();
+                        return sortOrder === 'asc' ? valA.localeCompare(valB, undefined, { numeric: true }) : valB.localeCompare(valA, undefined, { numeric: true });
                     } else {
                         valA = new Date(a.created_at || 0).getTime();
                         valB = new Date(b.created_at || 0).getTime();
+                        if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+                        if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+                        return 0;
                     }
-                    if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
-                    if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
-                    return 0;
                 });
 
             return (
             <Box>
                 <Typography variant="h5" fontWeight="800" mb={3} sx={{ color: '#002266' }}>Manage Applications</Typography>
                 
-                <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={2} mb={4} p={2} sx={{ bgcolor: 'white', borderRadius: 2, border: '1px solid #e0e0e0' }}>
-                    <TextField 
-                        label="Search by Company, ID, Contact, Stall..."
-                        variant="outlined"
-                        size="small"
-                        sx={{ flexGrow: 1 }}
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <TextField
-                        select
-                        label="Sort By"
-                        variant="outlined"
-                        size="small"
-                        sx={{ width: { xs: '100%', md: '200px' } }}
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
-                    >
-                        <MenuItem value="date">Date</MenuItem>
-                        <MenuItem value="name">Company Name</MenuItem>
-                        <MenuItem value="stall">Stall Number</MenuItem>
-                    </TextField>
-                    <TextField
-                        select
-                        label="Order"
-                        variant="outlined"
-                        size="small"
-                        sx={{ width: { xs: '100%', md: '150px' } }}
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
-                    >
-                        <MenuItem value="desc">Descending</MenuItem>
-                        <MenuItem value="asc">Ascending</MenuItem>
-                    </TextField>
-                </Box>
+                <Paper elevation={0} sx={{ p: 2.5, borderRadius: 3, mb: 4, border: '1px solid #e0e0e0' }}>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={12} md={6}>
+                            <TextField 
+                                label="Search by Company, ID, Contact, Stall..."
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <TextField
+                                select
+                                label="Sort By"
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                            >
+                                <MenuItem value="date">Date</MenuItem>
+                                <MenuItem value="name">Company Name</MenuItem>
+                                <MenuItem value="stall">Stall Number</MenuItem>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <TextField
+                                select
+                                label="Order"
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                                value={sortOrder}
+                                onChange={(e) => setSortOrder(e.target.value)}
+                            >
+                                <MenuItem value="desc">Descending</MenuItem>
+                                <MenuItem value="asc">Ascending</MenuItem>
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                </Paper>
 
                 {isMobile ? (
                     <Grid container spacing={2}>
