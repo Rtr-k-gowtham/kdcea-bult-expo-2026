@@ -137,8 +137,8 @@ const AdminDashboard = () => {
   });
   const [bookings, setBookings] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState('date');
-  const [sortOrder, setSortOrder] = useState('desc');
+  const [sortBy, setSortBy] = useState('stall');
+  const [sortOrder, setSortOrder] = useState('asc');
   
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
