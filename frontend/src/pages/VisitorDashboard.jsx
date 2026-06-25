@@ -171,6 +171,8 @@ const VisitorDashboard = () => {
         <Box>
             <VisitorPassPrint ref={passRef} visitor={selectedVisitor} />
 
+            <Typography variant="h5" fontWeight="800" mb={3} sx={{ color: '#002266' }}>Visitor Management</Typography>
+
             {alert.show && (
                 <Alert severity={alert.severity} sx={{ mb: 3 }} onClose={() => setAlert({ ...alert, show: false })}>
                     {alert.message}
@@ -178,50 +180,56 @@ const VisitorDashboard = () => {
             )}
 
             {/* Stat Cards */}
-            <Grid container spacing={2} mb={4}>
+            <Grid container spacing={3} mb={4}>
                 {statCards.map((s, i) => (
                     <Grid item xs={6} md={3} key={i}>
-                        <Paper elevation={0} sx={{ p: 2.5, borderRadius: 3, border: '1px solid #e0e0e0', bgcolor: s.bgColor, height: '100%' }}>
-                            <Box display="flex" alignItems="center" gap={1.5}>
-                                <Box sx={{ color: s.color }}>{s.icon}</Box>
-                                <Box>
-                                    <Typography variant="caption" color="text.secondary" fontWeight="600">{s.title}</Typography>
-                                    <Typography variant="h4" fontWeight="800" color={s.color}>{s.value}</Typography>
-                                </Box>
-                            </Box>
+                        <Paper elevation={0} sx={{ p: 3, borderRadius: 3, border: '1px solid #e0e0e0', bgcolor: s.bgColor, height: '100%' }}>
+                            <Box sx={{ color: s.color, mb: 1 }}>{s.icon}</Box>
+                            <Typography variant="caption" color="text.secondary" fontWeight="600" display="block">{s.title}</Typography>
+                            <Typography variant="h3" fontWeight="800" color={s.color}>{s.value}</Typography>
                         </Paper>
                     </Grid>
                 ))}
             </Grid>
 
             {/* Action Bar */}
-            <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={2} mb={4} p={2} sx={{ bgcolor: 'white', borderRadius: 2, border: '1px solid #e0e0e0' }}>
-                <TextField
-                    label="Search by Visitor ID, Name, or Mobile..."
-                    variant="outlined"
-                    size="small"
-                    sx={{ flexGrow: 1 }}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                />
-                <Button
-                    variant="contained"
-                    startIcon={<SearchIcon />}
-                    onClick={handleSearch}
-                    sx={{ bgcolor: '#002266', '&:hover': { bgcolor: '#003399' }, fontWeight: 700, borderRadius: 2, textTransform: 'none' }}
-                >
-                    Search
-                </Button>
-                <Button
-                    variant="contained"
-                    startIcon={<CheckInIcon />}
-                    onClick={() => setCheckInOpen(true)}
-                    sx={{ bgcolor: '#2e7d32', '&:hover': { bgcolor: '#1b5e20' }, fontWeight: 700, borderRadius: 2, textTransform: 'none' }}
-                >
-                    Check-In Visitor
-                </Button>
-            </Box>
+            <Paper elevation={0} sx={{ p: 2.5, borderRadius: 3, mb: 4, border: '1px solid #e0e0e0' }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            label="Search by Visitor ID, Name, or Mobile..."
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                        />
+                    </Grid>
+                    <Grid item xs={6} md={3}>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            startIcon={<SearchIcon />}
+                            onClick={handleSearch}
+                            sx={{ bgcolor: '#002266', '&:hover': { bgcolor: '#003399' }, fontWeight: 700, borderRadius: 2, textTransform: 'none', py: 1 }}
+                        >
+                            Search
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6} md={3}>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            startIcon={<CheckInIcon />}
+                            onClick={() => setCheckInOpen(true)}
+                            sx={{ bgcolor: '#2e7d32', '&:hover': { bgcolor: '#1b5e20' }, fontWeight: 700, borderRadius: 2, textTransform: 'none', py: 1 }}
+                        >
+                            Check-In Visitor
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Paper>
 
             {/* Visitors Table / Cards */}
             {loading ? (
