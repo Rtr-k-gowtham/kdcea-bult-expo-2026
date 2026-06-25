@@ -517,7 +517,7 @@ const AdminDashboard = () => {
                                     <TableCell>{b.booking_id || '-'}</TableCell>
                                     <TableCell fontWeight="500">{b.company_name}</TableCell>
                                     <TableCell>{b.contact_person}<br/><Typography variant="caption" color="text.secondary">{b.mobile}</Typography></TableCell>
-                                    <TableCell>{b.hall_name} <br/> <Typography variant="caption" color="text.secondary">Stall {b.stall_no}</Typography></TableCell>
+                                    <TableCell>{b.hall_name} - {b.stall_no}</TableCell>
                                     <TableCell>
                                     <Chip 
                                         label={b.status} 
@@ -526,9 +526,9 @@ const AdminDashboard = () => {
                                     />
                                     </TableCell>
                                     <TableCell align="center">
-                                        <IconButton color="primary" onClick={() => openDetailsModal(b)}>
-                                            <VisibilityIcon />
-                                        </IconButton>
+                                        <Button variant="outlined" size="small" startIcon={<VisibilityIcon />} onClick={() => openDetailsModal(b)}>
+                                            View
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                                 ))}
@@ -544,7 +544,7 @@ const AdminDashboard = () => {
                 )}
             </Box>
             );
-        })}
+        })()}
 
         {activeTab === 'halls' && <HallMaster />}
         {activeTab === 'categories' && <CategoryMaster />}
