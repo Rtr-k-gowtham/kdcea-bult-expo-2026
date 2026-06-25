@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+.booking-form-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+}
+
+.left-panel {
+    background: linear-gradient(135deg, #001a4d 0%, #003399 100%);
+    color: white;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 35%;
+}
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.form-card {
+    background: white;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 750px;
+}
+
+.step-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 30px;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.form-grid.full {
+    grid-template-columns: 1fr;
+}
+
+/* Custom Input Field */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.custom-input {
+    padding: 14px 16px;
+    font-size: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #1e293b;
+    transition: all 0.2s;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.custom-input:focus {
+    outline: none;
+    border-color: #003399;
+    box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.1);
+}
+
+.custom-input:disabled {
+    background-color: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+textarea.custom-input {
+    resize: vertical;
+    min-height: 100px;
+}
+
+
+/* Buttons */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn {
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-family: inherit;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+}
+
+.btn-outline:hover:not(:disabled) {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.btn-primary {
+    background: #002266;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #001a4d;
+    box-shadow: 0 4px 12px rgba(0, 34, 102, 0.2);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .left-panel {
+        display: none;
+    }
+    .right-panel {
+        padding: 20px;
+    }
+    .form-card {
+        padding: 30px 20px;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
