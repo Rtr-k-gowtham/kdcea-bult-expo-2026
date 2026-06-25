@@ -90,7 +90,7 @@ class BookingController {
                   LEFT JOIN halls h ON b.hall_id = h.id 
                   LEFT JOIN stalls s ON b.stall_id = s.id
                   LEFT JOIN categories c ON b.category_id = c.id
-                  ORDER BY b.created_at DESC";
+                  ORDER BY CAST(s.stall_no AS UNSIGNED) ASC, s.stall_no ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         echo json_encode(["status" => "success", "data" => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
