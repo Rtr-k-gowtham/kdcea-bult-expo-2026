@@ -19,6 +19,7 @@ require_once 'controllers/AuthController.php';
 require_once 'controllers/MasterController.php';
 require_once 'controllers/BookingController.php';
 require_once 'controllers/PaymentController.php';
+require_once 'controllers/VisitorController.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = str_replace('/backend', '', $uri);
@@ -31,6 +32,7 @@ $auth = new AuthController();
 $master = new MasterController();
 $booking = new BookingController();
 $payment = new PaymentController();
+$visitor = new VisitorController();
 
 if ($action === 'login') {
     $data = json_decode(file_get_contents("php://input"));
@@ -128,6 +130,38 @@ if ($action === 'login') {
         $data = json_decode(file_get_contents("php://input"));
         $payment->addPayment($data);
     }
+} elseif ($action === 'visitor_register') {
+    $data = json_decode(file_get_contents("php://input"));
+    $visitor->register($data);
+} elseif ($action === 'visitor_stats') {
+    if (!$auth->verifyToken()) {
+        http_response_code(401);
+        echo json_encode(["status" => "error", "message" => "Unauthorized"]);
+        exit;
+    }
+    $visitor->getVisitorStats();
+} elseif ($action === 'visitor_search') {
+    if (!$auth->verifyToken()) {
+        http_response_code(401);
+        echo json_encode(["status" => "error", "message" => "Unauthorized"]);
+        exit;
+    }
+    $visitor->search($_GET['query'] ?? '');
+} elseif ($action === 'visitor_all') {
+    if (!$auth->verifyToken()) {
+        http_response_code(401);
+        echo json_encode(["status" => "error", "message" => "Unauthorized"]);
+        exit;
+    }
+    $visitor->getAllVisitors();
+} elseif ($action === 'visitor_checkin') {
+    if (!$auth->verifyToken()) {
+        http_response_code(401);
+        echo json_encode(["status" => "error", "message" => "Unauthorized"]);
+        exit;
+    }
+    $data = json_decode(file_get_contents("php://input"));
+    $visitor->checkIn($data);
 } else {
     http_response_code(404);
     echo json_encode(["status" => "error", "message" => "Endpoint not found"]);

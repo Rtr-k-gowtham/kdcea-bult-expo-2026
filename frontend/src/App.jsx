@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import BookingForm from './pages/BookingForm';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import VisitorRegistration from './pages/VisitorRegistration';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<BookingForm />} />
+          <Route path="/visitor" element={<VisitorRegistration />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>

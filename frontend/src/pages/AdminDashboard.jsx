@@ -13,7 +13,8 @@ import {
   CloudDownload as DownloadIcon,
   Print as PrintIcon,
   AccountBalanceWallet as AccountBalanceWalletIcon,
-  Menu as MenuIcon
+  Menu as MenuIcon,
+  People as PeopleIcon
 } from '@mui/icons-material';
 import { getDashboardStats, getBookings, approveBooking, rejectBooking } from '../services/api';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +23,7 @@ import HallMaster from './masters/HallMaster';
 import CategoryMaster from './masters/CategoryMaster';
 import StallMaster from './masters/StallMaster';
 import PaymentCollection from './PaymentCollection';
+import VisitorDashboard from './VisitorDashboard';
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, 
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
@@ -276,6 +278,10 @@ const AdminDashboard = () => {
             <ListItem button selected={activeTab === 'payments'} onClick={() => setActiveTab('payments')} sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, '&.Mui-selected': { bgcolor: 'rgba(255,255,255,0.1)' } }}>
               <ListItemIcon sx={{ color: 'white' }}><AccountBalanceWalletIcon /></ListItemIcon>
               <ListItemText primary="Payment Collection" />
+            </ListItem>
+            <ListItem button selected={activeTab === 'visitors'} onClick={() => setActiveTab('visitors')} sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, '&.Mui-selected': { bgcolor: 'rgba(255,255,255,0.1)' } }}>
+              <ListItemIcon sx={{ color: 'white' }}><PeopleIcon /></ListItemIcon>
+              <ListItemText primary="Visitor Management" />
             </ListItem>
             {/*
             <ListItem button selected={activeTab === 'halls'} onClick={() => setActiveTab('halls')} sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, '&.Mui-selected': { bgcolor: 'rgba(255,255,255,0.1)' } }}>
@@ -550,6 +556,7 @@ const AdminDashboard = () => {
         {activeTab === 'categories' && <CategoryMaster />}
         {activeTab === 'stalls' && <StallMaster />}
         {activeTab === 'payments' && <PaymentCollection />}
+        {activeTab === 'visitors' && <VisitorDashboard />}
 
       </Box>
 

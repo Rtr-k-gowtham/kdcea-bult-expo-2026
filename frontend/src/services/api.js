@@ -56,4 +56,11 @@ export const adminBulkImportStalls = (stalls) => api.post('?action=admin_stalls&
 export const getPayments = (booking_id) => api.get(`?action=payments&booking_id=${booking_id}`);
 export const addPayment = (data) => api.post('?action=add_payment', data);
 
+// Visitors
+export const registerVisitor = (data) => api.post('?action=visitor_register', data);
+export const getVisitorStats = () => api.get('?action=visitor_stats');
+export const searchVisitors = (query) => api.get(`?action=visitor_search&query=${encodeURIComponent(query)}`);
+export const getAllVisitors = () => api.get('?action=visitor_all');
+export const checkInVisitor = (data) => api.post('?action=visitor_checkin', data);
+
 export default api;
